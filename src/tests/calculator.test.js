@@ -3,6 +3,9 @@ const {
   subtraction,
   multiplication,
   division,
+  modulo,
+  exponentiation,
+  squareRoot,
   run,
 } = require('../calculator');
 
@@ -25,6 +28,26 @@ describe('calculator operations', () => {
 
   test('throws when dividing by zero', () => {
     expect(() => division(20, 0)).toThrow('Cannot divide by zero.');
+  });
+
+  test('calculates modulo', () => {
+    expect(modulo(20, 3)).toBe(2);
+  });
+
+  test('throws when modulo divisor is zero', () => {
+    expect(() => modulo(20, 0)).toThrow('Cannot modulo by zero.');
+  });
+
+  test('calculates exponentiation', () => {
+    expect(exponentiation(2, 5)).toBe(32);
+  });
+
+  test('calculates square root', () => {
+    expect(squareRoot(49)).toBe(7);
+  });
+
+  test('throws when square root input is negative', () => {
+    expect(() => squareRoot(-1)).toThrow('Cannot take square root of a negative number.');
   });
 });
 
@@ -60,5 +83,20 @@ describe('calculator CLI runner', () => {
   test('runs division from CLI arguments', () => {
     expect(run(['/', '20', '5'])).toBe(4);
     expect(logSpy).toHaveBeenCalledWith(4);
+  });
+
+  test('runs modulo from CLI arguments', () => {
+    expect(run(['%', '20', '3'])).toBe(2);
+    expect(logSpy).toHaveBeenCalledWith(2);
+  });
+
+  test('runs exponentiation from CLI arguments', () => {
+    expect(run(['pow', '2', '5'])).toBe(32);
+    expect(logSpy).toHaveBeenCalledWith(32);
+  });
+
+  test('runs square root from CLI arguments', () => {
+    expect(run(['sqrt', '49'])).toBe(7);
+    expect(logSpy).toHaveBeenCalledWith(7);
   });
 });
